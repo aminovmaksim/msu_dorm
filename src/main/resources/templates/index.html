@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet/less" type="text/css" href="/static/styles.less">
@@ -11,6 +11,9 @@
 <div class="container">
     <form action="/find" method="get">
         <div class="select-container">
+            Введите ФИО для поиска
+        </div>
+        <div class="select-container" style="display: none">
             <label for="faculty">Выберите факультет</label>
             <select name="faculty" id="faculty" onchange="facultySelect(this)" >
                 <option value="PHYSICAL">Физфак</option>
@@ -19,22 +22,22 @@
                 <option value="GEOLOGICAL">Геологический</option>
             </select>
         </div>
-        <div id="tv_error" class="tv_error">
-            <p>Факультет еще не подключен к системе</p>
-        </div>
+<!--        <div id="tv_error" class="tv_error">-->
+<!--            <p>Факультет еще не подключен к системе</p>-->
+<!--        </div>-->
         <div id="student_div">
             <table>
                 <tr>
                     <td>Фамилия</td>
-                    <td><input type="text" name="surname" id="tv_surname"></td>
+                    <td><input type="text" name="surname" id="tv_surname" th:value="${surname}"></td>
                 </tr>
                 <tr>
                     <td>Имя</td>
-                    <td><input type="text" name="name" id="tv_name"></td>
+                    <td><input type="text" name="name" id="tv_name" th:value="${name}"></td>
                 </tr>
                 <tr>
                     <td>Отчество</td>
-                    <td><input type="text" name="patronymic" id="tv_patronymic"></td>
+                    <td><input type="text" name="patronymic" id="tv_patronymic" th:value="${patronymic}"></td>
                 </tr>
             </table>
             <button class="myButton" type="submit">

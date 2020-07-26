@@ -30,7 +30,14 @@ class MainController {
     lateinit var resourceLoader: ResourceLoader
 
     @GetMapping("/")
-    fun main(): String {
+    fun main(
+            model: Model,
+            @RequestParam("name", required = false) name: String?,
+            @RequestParam("surname", required = false) surname: String?,
+            @RequestParam("patronymic", required = false) patronymic: String?): String {
+        model.addAttribute("name", if (name.isNullOrBlank()) "" else name)
+        model.addAttribute("surname", if (surname.isNullOrBlank()) "" else surname)
+        model.addAttribute("patronymic", if (name.isNullOrBlank()) "" else patronymic)
         return "index"
     }
 
@@ -43,14 +50,17 @@ class MainController {
             @RequestParam("patronymic") patronymic: String
     ): String {
         val student = Student(name.toLowerCase(), surname.toLowerCase(), patronymic.toLowerCase(), Faculty.valueOf(faculty))
+        println(student)
 
         val allStudents = googleSheetsUtil.getStudentsFromAllDorms(student.faculty)
         val rooms = googleSheetsUtil.getStudentsRoom(student, allStudents)
+        println(allStudents)
 
         val results = mutableListOf<Student>()
         for (room in rooms)
             results.addAll(googleSheetsUtil.getStudentsByRoom(room, allStudents))
 
+        model.addAttribute("student", student)
         model.addAttribute("findNull", rooms.isEmpty())
         model.addAttribute("rooms", rooms)
         model.addAttribute("findSingle", results.size == 1)
@@ -61,7 +71,7 @@ class MainController {
 
     @GetMapping("/static/styles.less")
     @ResponseBody
-    fun styles():String {
+    fun styles(): String {
         val resource: Resource = ClassPathResource("static/styles.less")
         val inputStream: InputStream = resource.inputStream
         return try {

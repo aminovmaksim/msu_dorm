@@ -17,6 +17,7 @@ import com.google.api.services.sheets.v4.SheetsScopes
 import com.google.api.services.sheets.v4.model.ValueRange
 import org.springframework.stereotype.Component
 import java.io.*
+import java.lang.Exception
 
 @Component
 class GoogleSheetsUtil {
@@ -62,9 +63,16 @@ class GoogleSheetsUtil {
     fun getStudentsByRoom(room: String, allStudents: List<Student>): List<Student> {
         val result = mutableListOf<Student>()
 
-        for (student in allStudents)
-            if (student.room == room.toUpperCase()) result.add(student)
-
+        for (student in allStudents) {
+            if (student.room == room.toUpperCase()) {
+                student.room += " " + student.block
+                student.firstName = student.firstName.capitalize()
+                student.secondName = student.secondName.capitalize()
+                student.patronymic = student.patronymic.capitalize()
+                student.vk = "https://" + student.vk
+                result.add(student)
+            }
+        }
         return result
     }
 
@@ -80,9 +88,9 @@ class GoogleSheetsUtil {
             Faculty.GEOLOGICAL -> SHEET_IDs[3]
         }
 
-        val dslStudents = getAllRows("DSL!A2:F", sheetId)
-        val dsStudents = getAllRows("DS!A2:F", sheetId)
-        val dasStudents = getAllRows("DAS!A2:F", sheetId)
+        val dslStudents = getAllRows("DSL!A2:G", sheetId)
+        val dsStudents = getAllRows("DS!A2:G", sheetId)
+        val dasStudents = getAllRows("DAS!A2:G", sheetId)
 
         val result = mutableListOf<Student>()
 
@@ -99,15 +107,24 @@ class GoogleSheetsUtil {
     }
 
     private fun getStudentFromRow(row: List<Any>, dorm: String, faculty: Faculty): Student {
-        return Student(
-                row[2].toString().toLowerCase(),
-                row[1].toString().toLowerCase(),
-                row[3].toString().toLowerCase(),
-                faculty,
-                row[4].toString(),
-                (dorm + ": " + row[0].toString()).toUpperCase(),
-                row[5].toString()
-        )
+        return try {
+            val student = Student(
+                    row[3].toString().toLowerCase(),
+                    row[2].toString().toLowerCase(),
+                    row[4].toString().toLowerCase(),
+                    faculty,
+                    row[5].toString(),
+                    (dorm + ": " + row[0].toString()).toUpperCase()
+            )
+            if (row.size == 7) {
+                student.vk = row[6].toString()
+                student.block = row[1].toString()
+            }
+            return student
+        } catch (e: Exception) {
+            println(e.message)
+            Student("", "", "", Faculty.PHYSICAL)
+        }
     }
 
     private fun getAllRows(range: String, sheet_id: String): List<List<Any>> {

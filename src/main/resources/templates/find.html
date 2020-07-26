@@ -9,8 +9,18 @@
 <body>
 
 <div class="container">
-    <div id="tv_error" class="tv_error" th:style="${(!findNull) ? 'display : none' : 'display : block;'}">
-        <p>Студент не найден</p>
+    <div th:style="${(!findNull) ? 'display : none' : 'display : block;'}">
+        <div class="tv_error" >
+            <p>Студент не найден</p>
+        </div>
+        <form action="/" method="get">
+            <input hidden name="name" th:value="${student.firstName}">
+            <input hidden name="surname" th:value="${student.secondName}">
+            <input hidden name="patronymic" th:value="${student.patronymic}">
+            <button class="myButton" type="submit">
+                Назад
+            </button>
+        </form>
     </div>
     <div class="container" th:style="${(findNull) ? 'display : none' : 'display : block'}">
         Студент найден в следующих комнатах:
@@ -30,7 +40,7 @@
                 <th>Отчество</th>
                 <th>Комната</th>
                 <th>Курс</th>
-                <th>Телефон</th>
+                <th>VK</th>
             </tr>
             </thead>
             <tbody>
@@ -40,16 +50,19 @@
                 <td th:text="${student.patronymic}"></td>
                 <td th:text="${student.room}"></td>
                 <td th:text="${student.course}"></td>
-                <td th:text="${student.phone}"></td>
+                <td th:text="${student.vk}"></td>
             </tr>
             </tbody>
         </table>
+        <form action="/" method="get">
+            <input hidden name="name" th:value="${student.firstName}">
+            <input hidden name="surname" th:value="${student.secondName}">
+            <input hidden name="patronymic" th:value="${student.patronymic}">
+            <button class="myButton" type="submit">
+                Назад
+            </button>
+        </form>
     </div>
-    <form action="/" method="get">
-        <button class="myButton" type="submit">
-            Назад
-        </button>
-    </form>
 </div>
 </body>
 </html>

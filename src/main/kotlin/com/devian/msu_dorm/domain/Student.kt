@@ -1,11 +1,12 @@
 package com.devian.msu_dorm.domain
 
 data class Student(
-        val firstName: String,
-        val secondName: String,
-        val patronymic: String,
-        val faculty: Faculty,
-        val course: String = "",
+        var firstName: String,
+        var secondName: String,
+        var patronymic: String,
+        var faculty: Faculty,
+        var course: String = "",
         var room: String = "",
-        val phone: String = ""
+        var vk: String = "",
+        var block: String = ""
 )
