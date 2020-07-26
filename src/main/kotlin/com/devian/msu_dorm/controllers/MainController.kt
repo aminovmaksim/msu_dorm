@@ -49,7 +49,7 @@ class MainController {
             @RequestParam("surname") surname: String,
             @RequestParam("patronymic") patronymic: String
     ): String {
-        val student = Student(name.toLowerCase(), surname.toLowerCase(), patronymic.toLowerCase(), Faculty.valueOf(faculty))
+        val student = Student(name.toLowerCase().trim(), surname.toLowerCase().trim(), patronymic.toLowerCase().trim(), Faculty.valueOf(faculty))
         println(student)
 
         val allStudents = googleSheetsUtil.getStudentsFromAllDorms(student.faculty)

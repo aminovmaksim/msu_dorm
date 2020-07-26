@@ -108,9 +108,9 @@ class GoogleSheetsUtil {
     private fun getStudentFromRow(row: List<Any>, dorm: String, faculty: Faculty): Student {
         return try {
             val student = Student(
-                    row[3].toString().toLowerCase(),
-                    row[2].toString().toLowerCase(),
-                    row[4].toString().toLowerCase(),
+                    row[3].toString().toLowerCase().trim(),
+                    row[2].toString().toLowerCase().trim(),
+                    row[4].toString().toLowerCase().trim(),
                     faculty,
                     row[5].toString(),
                     (dorm + ": " + row[0].toString()).toUpperCase()
