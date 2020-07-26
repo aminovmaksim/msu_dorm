@@ -69,7 +69,6 @@ class GoogleSheetsUtil {
                 student.firstName = student.firstName.capitalize()
                 student.secondName = student.secondName.capitalize()
                 student.patronymic = student.patronymic.capitalize()
-                student.vk = "https://" + student.vk
                 result.add(student)
             }
         }
@@ -116,9 +115,11 @@ class GoogleSheetsUtil {
                     row[5].toString(),
                     (dorm + ": " + row[0].toString()).toUpperCase()
             )
+            if (row.size == 6) {
+                student.block = row[1].toString()
+            }
             if (row.size == 7) {
                 student.vk = row[6].toString()
-                student.block = row[1].toString()
             }
             return student
         } catch (e: Exception) {
