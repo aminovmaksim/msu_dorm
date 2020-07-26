@@ -1,47 +1,48 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
+    <link rel="stylesheet/less" type="text/css" href="/static/styles.less">
+    <script src="//cdn.jsdelivr.net/npm/less" ></script>
     <title>МГУ Общежитие</title>
 </head>
 <body>
 
-<form action="/find" method="get">
-    <label for="faculty">Выберите факультет: </label>
-    <select name="faculty" id="faculty" onchange="facultySelect(this)">
-        <option value="PHYSICAL">Физфак</option>
-        <option value="CMC">ВМК</option>
-        <option value="CHEMICAL">Химфак</option>
-        <option value="GEOLOGICAL">Геологический</option>
-    </select>
-    <div id="tv_error" style="display: none; color: red">
-        <p>Факультет еще не подключен к системе</p>
-    </div>
-    <div id="student_div">
-        <table>
-            <tr>
-                <td>Фамилия:</td>
-                <td><input type="text" name="surname" id="tv_surname"></td>
-            </tr>
-            <tr>
-                <td>Имя:</td>
-                <td><input type="text" name="name" id="tv_name"></td>
-            </tr>
-            <tr>
-                <td>Отчество:</td>
-                <td><input type="text" name="patronymic" id="tv_patronymic"></td>
-            </tr>
-        </table>
-        <button type="submit">Найти</button>
-    </div>
-</form>
+<div class="container">
+    <form action="/find" method="get">
+        <div class="select-container">
+            <label for="faculty">Выберите факультет</label>
+            <select name="faculty" id="faculty" onchange="facultySelect(this)" >
+                <option value="PHYSICAL">Физфак</option>
+                <option value="CMC">ВМК</option>
+                <option value="CHEMICAL">Химфак</option>
+                <option value="GEOLOGICAL">Геологический</option>
+            </select>
+        </div>
+        <div id="tv_error" class="tv_error">
+            <p>Факультет еще не подключен к системе</p>
+        </div>
+        <div id="student_div">
+            <table>
+                <tr>
+                    <td>Фамилия</td>
+                    <td><input type="text" name="surname" id="tv_surname"></td>
+                </tr>
+                <tr>
+                    <td>Имя</td>
+                    <td><input type="text" name="name" id="tv_name"></td>
+                </tr>
+                <tr>
+                    <td>Отчество</td>
+                    <td><input type="text" name="patronymic" id="tv_patronymic"></td>
+                </tr>
+            </table>
+            <button class="myButton" type="submit">
+                Найти
+            </button>
+        </div>
+    </form>
+</div>
 
 <script>
     function facultySelect(f) {
@@ -56,17 +57,5 @@
         }
     }
 </script>
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
 </body>
 </html>

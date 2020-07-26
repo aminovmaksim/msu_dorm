@@ -63,7 +63,7 @@ class GoogleSheetsUtil {
         val result = mutableListOf<Student>()
 
         for (student in allStudents)
-            if (student.room == room) result.add(student)
+            if (student.room == room.toUpperCase()) result.add(student)
 
         return result
     }
@@ -100,12 +100,12 @@ class GoogleSheetsUtil {
 
     private fun getStudentFromRow(row: List<Any>, dorm: String, faculty: Faculty): Student {
         return Student(
-                row[2].toString(),
-                row[1].toString(),
-                row[3].toString(),
+                row[2].toString().toLowerCase(),
+                row[1].toString().toLowerCase(),
+                row[3].toString().toLowerCase(),
                 faculty,
                 row[4].toString(),
-                dorm + ": " + row[0].toString(),
+                (dorm + ": " + row[0].toString()).toUpperCase(),
                 row[5].toString()
         )
     }

@@ -1,60 +1,55 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
+    <link rel="stylesheet/less" type="text/css" href="/static/styles.less">
+    <script src="//cdn.jsdelivr.net/npm/less" ></script>
     <title>МГУ Общежитие</title>
 </head>
 <body>
 
-<div th:style="${(!findNull) ? 'display : none' : 'display : block; color: red'}">
-    Студент не найден
+<div class="container">
+    <div id="tv_error" class="tv_error" th:style="${(!findNull) ? 'display : none' : 'display : block;'}">
+        <p>Студент не найден</p>
+    </div>
+    <div class="container" th:style="${(findNull) ? 'display : none' : 'display : block'}">
+        Студент найден в следующих комнатах:
+        <b>
+            <table id="rooms">
+                <tr th:each="room : ${rooms}">
+                    <td th:text="${room}"></td>
+                </tr>
+            </table>
+        </b>
+        Студенты, живущие в данных комнатах:
+        <table id="students">
+            <thead>
+            <tr class="table-header">
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Комната</th>
+                <th>Курс</th>
+                <th>Телефон</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${results}">
+                <td th:text="${student.secondName}"></td>
+                <td th:text="${student.firstName}"></td>
+                <td th:text="${student.patronymic}"></td>
+                <td th:text="${student.room}"></td>
+                <td th:text="${student.course}"></td>
+                <td th:text="${student.phone}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <form action="/" method="get">
+            <button class="myButton" type="submit">
+                Назад
+            </button>
+        </form>
+    </div>
 </div>
-<div th:style="${(findNull) ? 'display : none' : 'display : block'}">
-    Студент найден в следующих комнатах:
-    <b><table id="rooms">
-        <tr th:each="room : ${rooms}">
-            <td th:text="${room}"></td>
-        </tr>
-    </table></b>
-    Студенты, живущие в данных комнатах:
-    <table id="students">
-        <tr>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-            <th>Комната</th>
-            <th>Курс</th>
-            <th>Телефон</th>
-        </tr>
-        <tr th:each="student : ${results}">
-            <td th:text="${student.secondName}"></td>
-            <td th:text="${student.firstName}"></td>
-            <td th:text="${student.patronymic}"></td>
-            <td th:text="${student.room}"></td>
-            <td th:text="${student.course}"></td>
-            <td th:text="${student.phone}"></td>
-        </tr>
-    </table>
-</div>
-
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
 </body>
 </html>
