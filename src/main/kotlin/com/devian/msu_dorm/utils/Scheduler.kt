@@ -17,7 +17,7 @@ class Scheduler {
     @Autowired
     lateinit var studentsRepository: StudentsRepository
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 300000)
     fun scheduledUpdate() {
         println("Updating list of students")
         studentsRepository.saveAll(googleSheetsUtil.getStudentsFromAllDorms(Faculty.PHYSICAL))
