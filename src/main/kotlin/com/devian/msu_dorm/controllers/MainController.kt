@@ -54,7 +54,6 @@ class MainController {
 
         val allStudents = googleSheetsUtil.getStudentsFromAllDorms(student.faculty)
         val rooms = googleSheetsUtil.getStudentsRoom(student, allStudents)
-        println(allStudents)
 
         val results = mutableListOf<Student>()
         for (room in rooms)
