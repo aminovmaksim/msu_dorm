@@ -54,11 +54,13 @@ class MainController {
             @RequestParam("patronymic") patronymic: String
     ): String {
         val student = Student(UUID.randomUUID().toString(), name.toLowerCase().trim(), surname.toLowerCase().trim(), patronymic.toLowerCase().trim(), Faculty.valueOf(faculty))
-        println(student)
+        print(student)
 
         val allStudents = studentsRepository.findAll().toList()
 
         val rooms = googleSheetsUtil.getStudentsRoom(student, allStudents)
+        if (rooms.isEmpty())
+            println(" -------------- НЕ НАЙДЕН")
 
         val results = mutableListOf<Student>()
         for (room in rooms)
