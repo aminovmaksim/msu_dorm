@@ -2,11 +2,13 @@ package com.devian.msu_dorm.controllers
 
 import com.devian.msu_dorm.domain.Faculty
 import com.devian.msu_dorm.domain.Student
+import com.devian.msu_dorm.repo.StudentsRepository
 import com.devian.msu_dorm.utils.GoogleSheetsUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.ClassPathResource
 import org.springframework.core.io.Resource
-import org.springframework.core.io.ResourceLoader
+import org.springframework.scheduling.annotation.EnableScheduling
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.util.FileCopyUtils
@@ -17,17 +19,19 @@ import org.springframework.web.bind.annotation.ResponseBody
 import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.StandardCharsets
+import java.util.*
 
 
 @Controller
 @RequestMapping("/")
+@EnableScheduling
 class MainController {
 
     @Autowired
     lateinit var googleSheetsUtil: GoogleSheetsUtil
 
     @Autowired
-    lateinit var resourceLoader: ResourceLoader
+    lateinit var studentsRepository: StudentsRepository
 
     @GetMapping("/")
     fun main(
@@ -49,10 +53,11 @@ class MainController {
             @RequestParam("surname") surname: String,
             @RequestParam("patronymic") patronymic: String
     ): String {
-        val student = Student(name.toLowerCase().trim(), surname.toLowerCase().trim(), patronymic.toLowerCase().trim(), Faculty.valueOf(faculty))
+        val student = Student(UUID.randomUUID().toString(), name.toLowerCase().trim(), surname.toLowerCase().trim(), patronymic.toLowerCase().trim(), Faculty.valueOf(faculty))
         println(student)
 
-        val allStudents = googleSheetsUtil.getStudentsFromAllDorms(student.faculty)
+        val allStudents = studentsRepository.findAll().toList()
+
         val rooms = googleSheetsUtil.getStudentsRoom(student, allStudents)
 
         val results = mutableListOf<Student>()

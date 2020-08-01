@@ -18,6 +18,7 @@ import com.google.api.services.sheets.v4.model.ValueRange
 import org.springframework.stereotype.Component
 import java.io.*
 import java.lang.Exception
+import java.util.*
 
 @Component
 class GoogleSheetsUtil {
@@ -108,6 +109,7 @@ class GoogleSheetsUtil {
     private fun getStudentFromRow(row: List<Any>, dorm: String, faculty: Faculty): Student {
         return try {
             val student = Student(
+                    UUID.randomUUID().toString(),
                     row[3].toString().toLowerCase().trim(),
                     row[2].toString().toLowerCase().trim(),
                     row[4].toString().toLowerCase().trim(),
@@ -124,11 +126,12 @@ class GoogleSheetsUtil {
             return student
         } catch (e: Exception) {
             println(e.message)
-            Student("", "", "", Faculty.PHYSICAL)
+            Student(UUID.randomUUID().toString(), "", "", "", Faculty.PHYSICAL)
         }
     }
 
     private fun getAllRows(range: String, sheet_id: String): List<List<Any>> {
+        println("Google request")
         val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
         val service = Sheets.Builder(httpTransport, JSON_FACTORY, getCredentials(httpTransport))
                 .setApplicationName(APPLICATION_NAME)
