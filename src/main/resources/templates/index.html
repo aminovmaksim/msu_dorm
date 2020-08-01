@@ -32,15 +32,15 @@
             <table>
                 <tr>
                     <td>Фамилия</td>
-                    <td><input type="text" name="surname" id="tv_surname" th:value="${surname}"></td>
+                    <td><input type="text" name="surname" id="tv_surname" th:value="${surname}" required></td>
                 </tr>
                 <tr>
                     <td>Имя</td>
-                    <td><input type="text" name="name" id="tv_name" th:value="${name}"></td>
+                    <td><input type="text" name="name" id="tv_name" th:value="${name}" required></td>
                 </tr>
                 <tr>
                     <td>Отчество</td>
-                    <td><input type="text" name="patronymic" id="tv_patronymic" th:value="${patronymic}"></td>
+                    <td><input type="text" name="patronymic" id="tv_patronymic" th:value="${patronymic}" required></td>
                 </tr>
             </table>
             <button class="myButton" type="submit">
