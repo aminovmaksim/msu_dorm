@@ -59,8 +59,8 @@ class MainController {
         val allStudents = studentsRepository.findAll().toList()
 
         val rooms = googleSheetsUtil.getStudentsRoom(student, allStudents)
-        if (rooms.isEmpty())
-            println(" -------------- НЕ НАЙДЕН")
+        if (rooms.isEmpty()) println(" -------------- НЕ НАЙДЕН")
+        else println()
 
         val results = mutableListOf<Student>()
         for (room in rooms)
