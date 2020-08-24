@@ -90,7 +90,7 @@ class GoogleSheetsUtil {
 
         val dslStudents = getAllRows("DSL!A2:G", sheetId)
         val dsStudents = getAllRows("DS!A2:G", sheetId)
-        val dasStudents = getAllRows("DAS!A2:G", sheetId)
+        val fdsStudents = getAllRows("FDS!A2:G", sheetId)
 
         val result = mutableListOf<Student>()
 
@@ -100,8 +100,8 @@ class GoogleSheetsUtil {
         if (dsStudents.isNotEmpty())
             for (row in dsStudents) result.add(getStudentFromRow(row, "ДС", faculty))
 
-        if (dasStudents.isNotEmpty())
-            for (row in dasStudents) result.add(getStudentFromRow(row, "ДAС", faculty))
+        if (fdsStudents.isNotEmpty())
+            for (row in fdsStudents) result.add(getStudentFromRow(row, "ФДС", faculty))
 
         return result
     }
