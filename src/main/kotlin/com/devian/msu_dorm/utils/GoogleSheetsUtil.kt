@@ -15,6 +15,7 @@ import com.google.api.client.util.store.FileDataStoreFactory
 import com.google.api.services.sheets.v4.Sheets
 import com.google.api.services.sheets.v4.SheetsScopes
 import com.google.api.services.sheets.v4.model.ValueRange
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.io.*
 import java.lang.Exception
@@ -27,12 +28,7 @@ class GoogleSheetsUtil {
     private val JSON_FACTORY: JsonFactory = JacksonFactory.getDefaultInstance()
     private val TOKENS_DIRECTORY_PATH = "tokens"
 
-    private val SHEET_IDs = listOf(
-            "19aHJ1aRCgmuYEkD3myZPG1Ah37LAPlVwq94DG4ESUd0", /* ФИЗФАК */
-            "", /* ВМК */
-            "", /* ХИМФАК */
-            "" /* ГЕОЛОГИЧЕСКИЙ */
-    )
+    private val SHEET_IDs = listOf("19aHJ1aRCgmuYEkD3myZPG1Ah37LAPlVwq94DG4ESUd0")
 
     /**
      * Global instance of the scopes required by this quickstart.

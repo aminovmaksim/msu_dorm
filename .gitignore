@@ -32,4 +32,5 @@ out/
 
 ### VS Code ###
 .vscode/
-/tokens/
+/tokens/StoredCredential
+/src/main/resources/credentials.json
